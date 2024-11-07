@@ -19,7 +19,7 @@ model Tasks {
   assigneeName     String
   description      String
   status           TaskStatuses @default(TO_DO)
-  totalAttachments Int
+  totalAttachments Int          @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
