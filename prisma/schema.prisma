@@ -21,10 +21,21 @@ model Tasks {
   status           TaskStatuses @default(TO_DO)
   totalAttachments Int          @default(0)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  TaskAttachments TaskAttachments[]
 
   @@map("tasks")
+}
+
+model TaskAttachments {
+  uid      String @id @default(uuid())
+  fileUrl  String
+  fileName String
+  taskUid  String
+  task     Tasks  @relation(fields: [taskUid], references: [uid])
+
+  @@map("task_attachments")
 }
 
 enum TaskStatuses {

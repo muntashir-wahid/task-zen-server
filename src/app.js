@@ -13,6 +13,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 app.use("/api/v1/tasks", taskRouter);
@@ -25,6 +26,8 @@ app.use("/api/v1/tasks", taskRouter);
 //   );
 // });
 
-// app.use(errorController);
+app.use((req, res, next, err) => {
+  console.log(err);
+});
 
 module.exports = app;
