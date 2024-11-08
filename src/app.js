@@ -18,16 +18,11 @@ app.use(morgan("dev"));
 
 app.use("/api/v1/tasks", taskRouter);
 
-// app.all("*", (req, _, next) => {
-//   next(
-//     new Error(
-//       `Can't find ${req.originalUrl} for ${req.method} method on the server!.`
-//     )
-//   );
-// });
-
-app.use((req, res, next, err) => {
-  console.log(err);
+app.use((_, res, __, err) => {
+  res.status(err.statusCode).json({
+    status: err.status || "error",
+    message: err.message || "Something went wrong",
+  });
 });
 
 module.exports = app;
